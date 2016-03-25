@@ -14,7 +14,7 @@ wget -qO- https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar -
 
 #Set up $GOPATH and add go executables to $PATH
 cat > /etc/profile.d/go_env.sh <<\EOF
-export GOPATH=/root/go
+export GOPATH=/home/vagrant/go
 export PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
 EOF
 chmod +x /etc/profile.d/go_env.sh
@@ -40,3 +40,5 @@ export DEBIAN_FRONTEND=noninteractive
 #Set up vim for golang development
 git clone http://github.com/luan/vimfiles.git /home/vagrant/.vim
 /home/vagrant/.vim/install
+
+chown -R vagrant:vagrant /home/vagrant
