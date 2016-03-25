@@ -10,7 +10,7 @@ apt-get -y clean
 
 apt-get install -y git vim-nox jq cgroup-lite
 
-wget -qO- https://storage.googleapis.com/golang/go1.4.2.linux-amd64.tar.gz | tar -C /usr/local -xzf -
+wget -qO- https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
 #Set up $GOPATH and add go executables to $PATH
 cat > /etc/profile.d/go_env.sh <<\EOF
@@ -37,3 +37,6 @@ cat /vagrant/vimrc >> /etc/vim/vimrc
 export UCF_FORCE_CONFFNEW=YES
 export DEBIAN_FRONTEND=noninteractive
 
+#Set up vim for golang development
+git clone http://github.com/luan/vimfiles.git /home/vagrant/.vim
+/home/vagrant/.vim/install
