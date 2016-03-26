@@ -41,4 +41,8 @@ export DEBIAN_FRONTEND=noninteractive
 git clone http://github.com/luan/vimfiles.git /home/vagrant/.vim
 /home/vagrant/.vim/install
 
+#Set up tmux
+wget -O /home/vagrant/.tmux.conf https://raw.githubusercontent.com/luan/dotfiles/master/tmux.conf
+
+
 chown -R vagrant:vagrant /home/vagrant
