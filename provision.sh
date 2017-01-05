@@ -2,21 +2,20 @@
 
 set -e -x
 
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+
+add-apt-repository ppa:neovim-ppa/unstable
 apt-get -y update
 apt-get -y clean
 
-apt-get install -y curl git gcc make python-dev vim-nox jq cgroup-lite silversearcher-ag
+apt-get install -y curl git gcc make jq cgroup-lite silversearcher-ag neovim python-dev python-pip python3-dev python3-pip
 
-wget -qO- https://storage.googleapis.com/golang/go1.6.linux-amd64.tar.gz | tar -C /usr/local -xzf -
-
-# Set up vim for golang development
-git clone https://github.com/luan/vimfiles.git $HOME/.vim
-$HOME/.vim/install --non-interactive
+wget -qO- https://storage.googleapis.com/golang/go1.7.linux-amd64.tar.gz | tar -C /usr/local -xzf -
 
 # set up bash-it
 if [ ! -d ~/.bash_it ]; then
   git clone --depth=1 https://github.com/Bash-it/bash-it.git $HOME/.bash_it
-  $HOME/.bash_it/install.sh --none
+  ~/.bash_it/install.sh --silent
 fi
 
 #Set up git aliases
@@ -43,6 +42,10 @@ EOF
 
 source $HOME/.bash_it/custom/go_env.bash
 
+# Set up vim for golang development
+git clone https://github.com/luan/vimfiles.git $HOME/.vim
+curl vimfiles.luan.sh/install | bash
+
 RUNC_PATH=$GOPATH/src/github.com/opencontainers
 mkdir -p $RUNC_PATH
 git clone https://github.com/opencontainers/runc $RUNC_PATH/runc
@@ -56,15 +59,6 @@ popd
 wget -O $HOME/.tmux.conf https://raw.githubusercontent.com/luan/dotfiles/master/tmux.conf
 
 # install docker
-apt-get -y install apt-transport-https ca-certificates
-apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-
-mkdir -p /etc/apt/sources.list.d
-echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" > /etc/apt/sources.list.d/docker.list
-apt-get update
-
-apt-cache policy docker-engine
-apt-get install -y linux-image-extra-$(uname -r) docker-engine
-service docker start
+wget -qO- https://get.docker.com/ | sh
 
 echo Done
