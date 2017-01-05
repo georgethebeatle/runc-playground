@@ -38,6 +38,8 @@ cat > $HOME/.bash_it/custom/go_env.bash <<EOF
 
 export GOPATH=/root/go
 export PATH=/root/go/bin:/usr/local/go/bin:$PATH
+
+alias vim=nvim
 EOF
 
 source $HOME/.bash_it/custom/go_env.bash
@@ -45,6 +47,7 @@ source $HOME/.bash_it/custom/go_env.bash
 # Set up vim for golang development
 git clone https://github.com/luan/vimfiles.git $HOME/.vim
 curl vimfiles.luan.sh/install | bash
+pip3 install neovim
 
 RUNC_PATH=$GOPATH/src/github.com/opencontainers
 mkdir -p $RUNC_PATH
