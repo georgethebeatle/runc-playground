@@ -48,6 +48,7 @@ cat > $HOME/.bash_it/custom/ssh.bash <<EOF
 
 if [ -f /tmp/auth ]; then
   export $(cat /tmp/auth)
+  rm /tmp/auth
 fi
 EOF
 
