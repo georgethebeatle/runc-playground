@@ -42,6 +42,15 @@ export PATH=/root/go/bin:/usr/local/go/bin:$PATH
 alias vim=nvim
 EOF
 
+#Set up ssh keys
+cat > $HOME/.bash_it/custom/ssh.bash <<EOF
+#!/usr/bin/env bash
+
+if [ -f /tmp/auth ]; then
+  export $(cat /tmp/auth)
+fi
+EOF
+
 source $HOME/.bash_it/custom/go_env.bash
 
 # Set up vim for golang development
