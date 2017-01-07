@@ -18,19 +18,8 @@ if [ ! -d ~/.bash_it ]; then
   ~/.bash_it/install.sh --silent
 fi
 
-#Set up git aliases
-cat > $HOME/.bash_it/custom/git_config.bash <<EOF
-#!/usr/bin/env bash
-
-git config --global core.editor vim
-git config --global core.pager "less -FXRS -x2"
-
-git config --global alias.co checkout
-git config --global alias.st status
-git config --global alias.b branch
-git config --global alias.plog "log --graph --abbrev-commit --decorate --date=relative --format=format:\'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
-git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
-EOF
+mv /vagrant/gitconfig $HOME/.gitconfig
+mv /vagrant/git-authors $HOME/.git-authors
 
 #Set up $GOPATH and add go executables to $PATH
 cat > $HOME/.bash_it/custom/go_env.bash <<EOF
@@ -52,7 +41,14 @@ if [ -f /tmp/auth ]; then
 fi
 EOF
 
+# from now on GOPATH is configured
 source $HOME/.bash_it/custom/go_env.bash
+
+# install git-duet
+go get github.com/git-duet/git-duet
+pushd $GOPATH/src/github.com/git-duet/git-duet
+ scripts/install
+popd
 
 # Set up vim for golang development
 git clone https://github.com/luan/vimfiles.git $HOME/.vim
